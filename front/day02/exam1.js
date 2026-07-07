@@ -40,3 +40,22 @@ let point4 = point1 + point2
 // 변수는 4개 리터럴은 2개
 // 변수의 특징 : 저장, 동일한 자료를 서로 다른 곳에 저장
 
+// 출력함수
+// 함수 : 자주 사용되는 코드들을 정의해서 재사용
+// 1. console.log()
+console.log("안녕하세요")
+
+// 2. alert()
+alert("안녕하세요")
+
+// 3. document.querySelector("선택지").innerHTML
+document.querySelector("h3").innerHTML = "JS에서 대입한값"
+
+// 입력함수
+// 1. confirm( 출력할 메시지 ) : 브라우저 [확인=true] [취소=false] 알림창
+let 결과1 = confirm()
+console.log(결과1)
+
+// 2. prompt(출력할 메시지) : 브라우저에 입력가능한 알림창, 입력한 자료 반환
+let 결과2 = prompt()
+console.log(결과2)
