@@ -37,8 +37,26 @@
             <li> 항목2 </li>
         </ul>
 
-        <a href="https://www.naver.com"> 네이버 링크</a>
+        <a href="https://www.naver.com"> 네이버 링크</a> <!-- 하이퍼링크 -->
         <a href="exam1.html"> day02 HTML 이동</a>
         <a href="tel:010-5361-2212"> 모바일에서 전화앱 </a>
+
+        <img src="다운로드.jpeg"/> <!-- 이미지 -->
+        <img src="./다운로드.jpeg"/>
+        <img src="../다운로드.jpeg"/>
+        <!-- 상대경로 : 현재 코드를 작성하는 위치 기준으로 불러올 파일의 경로 지정 -->
+        <!-- ./ : 현재폴더이며 생략가능
+            ../ : 상위폴더 1번 이동 , day02 폴더 기준으로 상위폴더 이동
+            .../ : 상위폴더 2번 이동 --> 
+
+        <!-- 절대경로 : 불러올 파일의 전체 경로 지정 -->
+        <img src="C:\Users\주석암\OneDrive\Desktop\KDT\front\day02\다운로드.jpeg">
+        <img src="http://127.0.0.1:5500/day02/다운로드.jpeg">
+
+        <audio src="grand_project-wonders-of-the-earth-550792.mp3" controls></audio>
+
+        <video src="비디오.mp4" controls autoplay muted></video>
+
+        <iframe src="https://www.google.com/maps/embed?pb=!1m5!3m3!1m2!1s0x357b67b86fa90ca9%3A0x50ab76efd5310e0d!2z7ISx6rKw64yA7ZWZ6rWQ!5e0!3m2!1sko!2skr!4v1783414978461!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
     </body> <!-- HTML 본문 끝 -->
 </html> <!-- HTML 끝 -->
