@@ -57,8 +57,9 @@ console.log(`좋아요: [${++likeCount}]`)
 let todoList = ["장보기", "과제하기"]
 console.log(todoList)
 let todo = prompt("할일을 추가하세요")
-let todoList2 = todoList.push(todo)
-console.log(todoList2)
+console.log(`${todoList.push(todo)}`)
+// let todoList2 = todoList.push(todo)
+// console.log(todoList2)
 
 
 //문제10
