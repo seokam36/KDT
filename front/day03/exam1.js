@@ -131,17 +131,49 @@ console.log(`입력받은 값 : ${홀짝}`)
 
 // [지문5] prompt 함수로 정수를 입력받아 입력받은 값이 7의 배수이면 true / 아니면 false 로console탭에 출력하시오.
 
+/* 
 let 정수 = Number(prompt("정수 입력"))
-let result = 정수%7 ? "fasle" : "true"
+let result = 정수%7 ? "false" : "true"
 console.log(`${result}`)
+ */
 
 // [지문6] prompt 함수로 아이디 와 비밀번호를 입력받아서 (입력받은)아이디가 'admin' 이고 (입력받은)비밀번호가 1234 와 일치하면 true / 아니면 false 출력하시오.
 
+/* 
+let id = prompt("아이디 입력")
+let password = Number(prompt("비밀번호 입력"))
+let result = id == "admin" && password == 1234
+console.log(`결과 : ${result}`)
+ */
 
 // [지문7] prompt 함수로 정수를 입력받아 입력받은 값이 홀수 이거나 7배수 이면 true / 아니면false 로 console탭에 출력하시오.
 
+/* 
+let i = Number(prompt("정수 입력"))
+let result = i%7==0 || i%2==1
+console.log(`입력받은 값 홀수이거나 7의 배수 : ${result}`)
+ */
 
 // [지문8] 1차점수 와 2차점수 prompt함수로 각 입력받아서 총점이 150점이상이면 '합격' 아니면'불합격' HTML의 <h3> 에 출력하시오.
 
+/* 
+let score1 = Number(prompt("1차 점수 입력"))
+let score2 = Number(prompt("2차 점수 입력"))
+let result = score1 + score2 >= 150 ? "합격" : "불합격"
+document.querySelector("h3").innerHTML = `결과 : ${result}`
+ */
 
 // [지문9] 두 사람의 이름을 prompt함수로 각 입력받아서 만일 이름이 '유재석' 이면 뒤에 (방장) 이라고 이름 뒤에 붙이고 아니면 생략한다.  HTML의 <ol> 에 결과를 출력하시오.
+
+/* 
+let name1 = prompt("이름1 입력")
+let name2 = prompt("이름2 입력")
+let result1 = name1=="유재석" ? name1+"(방장)" : name1
+let result2 = name2=="유재석" ? name2+"(방장)" : name2
+document.querySelector("ol").innerHTML = `<li>${result1}</li> <li>${result2}</li>`
+ */
+
+// 증감연산자
+let age = 30
+console.log(age++) // console에 30 출력후 증가 -> 후위증가
+console.log(++age) // console에 32 출력, 출력전에 증가 -> 선위증가
