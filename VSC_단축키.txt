@@ -1,2 +1,6 @@
-shift + alt + a => /* */ 여러줄 주석처리 
-ctrl + d => 단어 선택
+shift + alt + a                 /* */ 여러줄 주석처리 
+ctrl + d                        단어 선택
+ctrl + shift + <-/->            여러 단어 선택
+Shift + Alt+ Up/Down            줄 복사
+Alt + Up/Down                   줄 이동
+Ctrl + Shift + K                줄 삭제
