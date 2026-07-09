@@ -6,11 +6,16 @@ function 보드출력(){
 ${array[1][0]} ${array[1][1]} ${array[1][2]}
 ${array[2][0]} ${array[2][1]} ${array[2][2]}`)
 }
+
 보드출력()
 
 while(1){
     if(player1 % 2 == 0){
         let result = prompt("player1 : 선택할 칸을 입력하세요(0~8)")
+        if (result < 0 || result > 8){
+            alert("잘못된 숫자를 입력했습니다.(0~8)")
+            continue
+        }
         let row
         if(result <= 2){
             row = 0
@@ -66,6 +71,10 @@ while(1){
         }
     } else {
         let result = prompt("player2 : 선택할 칸을 입력하세요(0~8)")
+        if (result < 0 || result > 8){
+            alert("잘못된 숫자를 입력했습니다.(0~8)")
+            continue
+        }
         let row
         if(result <= 2){
             row = 0
