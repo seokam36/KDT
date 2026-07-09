@@ -131,3 +131,25 @@ if (play1 == 0){
 } */
 
 // 문제9
+
+/* let carArray = ["250어7142", "142가7415", "888호8888"]
+let locationArray = ["A1", "B3","C2"]
+
+let car = prompt("차량번호를 입력하세요")
+if(carArray.indexOf(car) >= 0){
+    console.log(`해당 차량의 주차 위치 : ${locationArray[carArray.indexOf(car)]}`)
+} else {
+    console.log("차량이 존재하지 않습니다.")
+} */
+
+// 문제10
+
+let courseList = ["수학", "영어", "과학", "국어"]
+let list = prompt("제외하고 싶은 과목명")
+
+if(courseList.indexOf(list) >= 0){
+    courseList.splice(courseList.indexOf(list),1)
+    console.log(courseList)
+} else {
+    console.log("해당 과목은 신청 목록에 없습니다.")
+}
