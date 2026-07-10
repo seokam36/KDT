@@ -1,13 +1,13 @@
 // 문제1
 
-let numbers = [23, 5, 67, 12, 88, 34]
+/* let numbers = [23, 5, 67, 12, 88, 34]
 let max = numbers[0]
 for(i=1; i<5; i++){
     if(max < numbers[i]){
         max = numbers[i]
     }
 }
-console.log(`가장 큰값 : ${max}`)
+console.log(`가장 큰값 : ${max}`) */
 
 
 /*문제 2: 별 찍기 (기본 역삼각형)
@@ -26,7 +26,14 @@ for 중첩 반복문을 사용하여 아래와 같은 모양의 별을 출력하
 
 */
 
-
+let line = ""
+for(let i = 1; i <= 5; i++){
+    for(let j = i; j <= 5; j++){
+        line += "*"
+    }
+    line += "\n"
+}
+console.log(line)
 
 /*문제 3: 배열에서 특정 문자 찾기 (break 활용)
 
@@ -36,6 +43,13 @@ let userNames = ['김하준', '이서아', '박솔민', '최도윤'];
 
 힌트: 문자열의 .indexOf() 메소드를 사용하세요.*/
 
+let userNames = ['김하준', '이서아', '박솔민', '최도윤']
+for(let i = 0; i < userNames.length; i++){
+    if(userNames[i].indexOf("솔")>=0){
+        console.log(userNames[i])
+        break
+    }
+}
 
 /*문제 4: 2차원 배열의 모든 요소 출력하기
 
@@ -43,6 +57,12 @@ let userNames = ['김하준', '이서아', '박솔민', '최도윤'];
 
 let seatLayout = [['A1', 'A2', 'A3'], ['B1', 'B2', 'B3'], ['C1', 'C2', 'C3']];*/
 
+let seatLayout = [['A1', 'A2', 'A3'], ['B1', 'B2', 'B3'], ['C1', 'C2', 'C3']]
+for(let i = 0; i < 3; i++){
+    for(let j = 0; j < 3; j++){
+        console.log(seatLayout[i][j])
+    }
+}
 
 /*문제 5: 배열의 중복 요소 제거하기
 
@@ -52,6 +72,14 @@ let numbers = [1, 5, 2, 3, 5, 1, 4, 2];
 
 힌트: 새로운 배열을 만들고, for 반복문으로 기존 배열을 순회하며 새로운 배열에 해당 요소가 없을( .indexOf() == -1 ) 때만 추가(push())합니다.*/
 
+/* let numbers = [1, 5, 2, 3, 5, 1, 4, 2]
+let number = []
+for(let i = 0; i < numbers.length; i++){
+    if(number.indexOf(numbers[i]) == -1){
+        number.push(numbers[i])
+    }
+}
+console.log(number) */
 
 /*문제 6: 버블 정렬 (Bubble Sort) 구현하기
 
@@ -61,6 +89,18 @@ let numbers = [5, 3, 4, 1, 2];
 
 힌트: 중첩 for 반복문을 사용하며, 이웃한 두 요소를 비교하 위치를 바꿉니다.*/
 
+let numbers = [5, 3, 4, 1, 2]
+for(let i = 0; i < numbers.length; i++){
+    for(let j = i+1; j < numbers.length; j++){
+        let change = 0
+        if(numbers[i] > numbers[j]){
+            change = numbers[j]
+            numbers[j] = numbers[i]
+            numbers[i] = change
+        }
+    }
+}
+console.log(numbers)
 
 /*문제 7: 재고 관리 시스템
 
@@ -70,6 +110,12 @@ let numbers = [5, 3, 4, 1, 2];
 let products = ['볼펜', '노트', '지우개'];
 
 let stock = [10, 5, 20];*/
+
+let products = ['볼펜', '노트', '지우개']
+let stock = [10, 5, 20]
+let order = prompt("구매할 상품명(볼펜, 노트, 지우개)")
+let order2 = Number(prompt("구매할 수량"))
+let order_product = products.indexOf(order)
 
 
 /*문제 8: 영화 평점 시각화하기
