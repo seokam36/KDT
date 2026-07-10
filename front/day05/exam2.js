@@ -7,7 +7,7 @@ for(let i =0; i <= fruitList.length-1; i++){
 }
 
 // [2] 3개의 이름을 입력받아 배열에 저장하고 배열에 저장된 이름들을 HTML 출력
-let array = []
+/* let array = []
 for(let n = 0; n<3; n++){
     let name = prompt("이름을 입력")
     array.push(name)
@@ -17,4 +17,35 @@ let html = ``
 for(let index = 0; index <= array.length-1; index++){
     html += `<li> ${array[index]} </li>`
 }
-document.querySelector("ol").innerHTML = html
+document.querySelector("ol").innerHTML = html */
+
+// 반복문 제어키워드
+// 1. continue
+for(let i = 1; i <= 5; i++){
+    if(i==3){
+        continue
+    }
+    console.log(i)
+}
+
+// 2. break
+for(let i = 1; i <= 5; i++){
+    if(i == 3){
+        break
+    }
+    console.log(i)
+}
+
+// 3. 무한루프
+/* for( ; ; ){
+    console.log("무한반복")
+} */
+
+/* for(;;){
+    let i = prompt()
+    if(i=="EXIT"){
+        break
+    }
+} */
+
+    
