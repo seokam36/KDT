@@ -140,28 +140,57 @@ const team = [
 { name: '민수', department: '개발팀' },
 { name: '지혜', department: '기획팀' }
 ];
-let result2 = {"개발팀":[], "기획팀":[]}
+let result2 = {}
+
 for(let i=0; i<team.length; i++){
-    
+    if(team[i].department in result2){
+        result2[team[i].department].push(team[i].name)  
+    } else {
+        result2[team[i].department] = [team[i].name]
+    }
 }
+console.log(result2)
 /* 문제 8: 장바구니 총액 계산하기
 고객의 장바구니 정보를 담은 cart 배열과 상품 정보를 담은 productsInfo 배열이 있습니다.
 cart 배열: 각 요소는 고객이 담은 상품의 id와 quantity(수량)를 가집니다.
 productsInfo 배열: 각 요소는 상품의 고유 id와 price(가격)를 가집니다.
 cart 배열을 기준으로, 장바구니에 담긴 모든 상품의 총 결제 금액을 계산하여 콘솔에 출력하세요.
+*/
 const cart = [{ id: 1, quantity: 2 },{ id: 3, quantity: 1 }];
 const productsInfo = [
 { id: 1, price: 1000 },
 { id: 2, price: 5000 }, // 장바구니에 없는 상품
 { id: 3, price: 2500 }
 ];
-*/
+
+let total2 = 0;
+for(let i = 0; i<cart.length; i++){
+    let product = cart[i]
+    for(let j=0; j<productsInfo.length; j++){
+        let product2 = productsInfo[j]
+        if(product.id == product2.id){
+            total2 += product2.price * product.quantity
+        }
+    }
+}
+console.log(total2)
 
 /* 문제 9: 투표 결과 집계하기
 다음 votes 배열은 투표 결과를 나타냅니다. 각 후보가 몇 표를 받았는지 집계하여, 후보의 이름이 키이고 득표수가 값인 객체를 만들어 콘솔에 출력하시오.
 const votes = ['A', 'B', 'B', 'C', 'A', 'B', 'A'];
 출력 예시: { A: 3, B: 3, C: 1 }
 */
+const votes = ['A', 'B', 'B', 'C', 'A', 'B', 'A'];
+let result3 = {}
+
+for(let i=0; i<votes.length; i++){
+    if(votes[i] in result3){
+        result3[votes[i]]++
+    } else {
+        result3[votes[i]] = 1
+    }
+}
+console.log(result3)
 
 /* 문제 10: 웹툰 평점 시각화하기
 webtoons 배열의 데이터를 이용하여, 각 웹툰의 평점을 별(★, ☆)로 시각화하여 HTML에 출력하시오.
