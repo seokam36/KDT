@@ -1,0 +1,103 @@
+/* *{
+    border: 1px solid rebeccapurple;
+} */
+
+#header{
+    width: 1280px;
+    margin: 0 auto; /* 구역 가운데 정렬 */
+}
+
+#main{
+    width: 1280px;
+    margin: 0 auto;
+}
+
+/* 자주 사용되는 기본CSS */
+*{
+    box-sizing: border-box; /* content + heading 포함 사이즈 정의 */
+    padding: 0px; margin: 0px; /* 기본 여백 제거 */
+}
+a{
+    text-decoration: none; /* a하이퍼링크 밑줄 제거 */
+    color: black; /* a하이퍼링크 색상 검정 */
+}
+li{
+    list-style-type: none; /* li 항목 글머리 제거 */
+}
+
+
+/* ======================== [1] header ==========================*/
+#header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.top-menu{
+    display: flex;
+    justify-content: end; /* 오른쪽 정렬 */
+    margin: 10px 0px;
+}
+
+.main-menu{
+    display: flex;
+    justify-content: end;
+    margin: 20px 0px;
+}
+
+.main-menu > li {margin-left: 50px; font-size: 25px; font-weight: bold;}
+.top-menu > li {margin-left: 10px;}
+/* =============================================================== */
+
+#main-img > img{width: 100%;}
+
+/* ==========================[2] main============================= */
+#main{
+    display: flex;
+    justify-content: space-between;
+    margin: 30px auto;
+}
+.sidebar{
+    width: 230px;
+}
+.sidebar > h3 {
+    background-color: #808080;
+    color:white;
+    padding: 10px;
+}
+.sidebar > ol > li{
+    padding: 10px 0px;
+    border-bottom: 1px solid #EEEEEE;
+}
+.content{
+    width: 1030px;
+}
+.content > h3 {
+    font-size: 20px;
+    padding-bottom: 20px; margin-bottom: 10px;
+    border-bottom: 1px solid #EEEEEE;
+}
+.content > img{
+    display: block; /* img 마크업은 display:inline 이므로 block 변경 */
+    margin: 20px auto;
+}
+/* =============================================================== */
+/* ============================[3]footer========================== */
+#footer{
+    margin-top: 20px;
+    background-color: #2c2b29;
+}
+
+.footer-inner{
+    width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0px;
+}
+.right-footer  {
+    color: white;
+}
+/* =============================================================== */
