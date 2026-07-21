@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'JoseonPalace';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGs.woff') format('woff');
+    font-weight: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'YeogiOttaeJalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-display: swap;
+}
+
+.title{
+    font-style: italic;
+    font-family: 'JoseonPalace';
+}
+
+.blue{
+    color: blue;
+    font-family: 'YeogiOttaeJalnan';
+    letter-spacing: 5px;
+    word-spacing: 10px;
+}
+
+.red{
+    color: red;
+    text-align: center;
+    text-decoration: underline overline line-through;
+    
+}
