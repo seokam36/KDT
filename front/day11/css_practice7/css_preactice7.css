@@ -171,9 +171,14 @@ li{
     list-style-type: none; /* li 항목 글머리 제거 */
 }
 
-#footer{ 
+#footer{
     background-color: #1d334c;
     color: white;
+}
+
+.footer_inner{
+    width: 1280px;
+    margin: 0 auto;
 }
 
 .footer1 > ol{

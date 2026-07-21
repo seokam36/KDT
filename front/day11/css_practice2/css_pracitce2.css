@@ -1,0 +1,19 @@
+/*  *{
+    border: 1px solid rebeccapurple;
+} */
+
+li{
+    list-style-type: none; /* li 항목 글머리 제거 */
+}
+
+.main{
+    background-color: rgb(16, 102, 62);
+    color: white;
+    padding: 5px 0px;
+}
+
+.title > ol{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
