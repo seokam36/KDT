@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <style>
+    .dark-mode{
+      background-color: black;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+    <h1 id="title"></h1>
+
+    <input id="usernameInput"/>
+    <button id="submitBtn" onclick="onClick()">button</button>
+    <p id="greeting"></p>
+
+    <button id="styleBtn" onclick="onClick2()">스타일 변경 버튼</button>
+    <div id="colorBox">ddddd</div>
+
+    <button id="themeBtn" onclick="toggleFun()">테마 변경</button>
+
+    <button id="removeBtn" onclick="removeFunc()">박스 삭제</button>
+    <div id="targetBox">타겟 구역</div>
+
+    <p class="item">요소1</p>
+    <p class="item">요소2</p>
+    <p class="item">요소3</p>
+
+    <button id="changeImgBtn" onclick="imgChange()">이미지 변경</button>
+    <img id="mainImage">
+
+    <select onchange="selectFunc()">
+        <option>바나나</option>
+        <option>포도</option>
+        <option>수박</option>
+    </select>
+
+    <input id="nameInput"/>
+    <button onclick="func2()">배열 등록</button>
+
+    <script src="dom_exam2.js"></script>
+</body>
+</html>
