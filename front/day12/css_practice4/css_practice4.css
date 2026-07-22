@@ -1,9 +1,10 @@
 .main{
     width: 500px;
     border: 1px solid gray;
-    padding: 20px;
 }
 
-body > img{
+.main > img{
     width: 100%;
+    border-bottom: 1px solid gray;
 }
+
