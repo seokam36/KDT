@@ -39,7 +39,7 @@ function departmentPrint(){
 //2. CREATE
 function departmentAdd(){
     let name = document.querySelector(".dname").value               
-    let object = {dcode:lastDepartmentCode, dname:name}
+    let object = {dcode:++lastDepartmentCode, dname:name}
     console.log(object)
     // 같은 부서명 입력시 오류
     for(let i=0; i<departmentList.length; i++){
@@ -49,7 +49,6 @@ function departmentAdd(){
         }
     }
     departmentList.push(object)
-    lastDepartmentCode++
 
     alert("등록 성공")
     departmentPrint()
@@ -77,12 +76,12 @@ function departmentUpdate(dcode){
 function departmentDelete(dcode){
     for(let i=0; i<departmentList.length; i++){
         if(departmentList[i].dcode == dcode){
-            /* for(let j=0; j<employeeList.length; j++){
+            for(let j=0; j<employeeList.length; j++){
                 if(dcode == employeeList[j].dcode){
                     alert("사원목록에 해당 부서가 있습니다")
                     return
                 }
-            } */
+            }
             departmentList.splice(i,1)
             alert("삭제 성공")
             departmentPrint()
