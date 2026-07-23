@@ -77,12 +77,12 @@ function departmentUpdate(dcode){
 function departmentDelete(dcode){
     for(let i=0; i<departmentList.length; i++){
         if(departmentList[i].dcode == dcode){
-            for(let j=0; j<employeeList.length; j++){
+            /* for(let j=0; j<employeeList.length; j++){
                 if(dcode == employeeList[j].dcode){
                     alert("사원목록에 해당 부서가 있습니다")
                     return
                 }
-            }
+            } */
             departmentList.splice(i,1)
             alert("삭제 성공")
             departmentPrint()
