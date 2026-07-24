@@ -1,0 +1,47 @@
+body{background-color: darkblue;}
+div{
+    border-radius: 10px;
+    background-color: aqua;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.box1{
+    
+    position: absolute;
+    top: 0;
+    left: 50%;
+}
+.box2{
+    position: absolute;
+    top: 150px;
+    left: 400px ;
+}
+
+.box3{
+    position: absolute;
+    top: 150px;
+    right: 280px ;
+}
+
+.box4{
+    position: absolute;
+    top: 450px;
+    left: 400px ;
+}
+
+.box5{
+    position: absolute;
+    top: 450px;
+    right: 280px ;
+}
+
+.box6{
+    position: absolute;
+    top: 600px;
+    left: 50%;
+}
