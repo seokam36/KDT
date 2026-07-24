@@ -12,8 +12,10 @@ function view(){
     // 반복문 돌려서 동일한 게시물번호 찾아 출력하기 
     for(let i=0; i<boardList.length; i++){
         let board = boardList[i]
+        if(no == boardList.no){
         document.querySelector("#title").innerHTML = board.title
         document.querySelector("#content").innerHTML = board.content
+        }
     }
 }
 
@@ -29,7 +31,7 @@ function del(){
     }
 
     for(let i=0; i<boardList.length; i++){
-        board = boardList[i]
+        let board = boardList[i]
         if(board.no == no){
             let pw = prompt("비밀번호 입력")
             if(board.pw == pw){
