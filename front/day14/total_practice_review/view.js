@@ -45,7 +45,7 @@ function del(){
             let pw = prompt('비밀번호 입력')
             if(pw == board.pw){
                 boardList.splice(i,1)
-                localStorage.setItem('boardList',JSON.stringify(boardList))
+                localStorage.setItem('boardLisxt',JSON.stringify(boardList))
                 alert('삭제 성공')
                 location.href = "list.html"
             } else {
