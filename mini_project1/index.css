@@ -1,0 +1,60 @@
+*{
+    
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+li{ list-style-type: none; }
+
+#header{
+    width: 100%;
+    display: contents;
+}
+
+#topmenu{
+    display: flex;
+    justify-content: flex-end;
+    background-color: #FFFBEB;
+    padding: 10px 10px;
+}
+#topmenu > li > span{
+    padding: 0px 20px;
+}
+
+#mainmenu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 40px;
+    background-color: #FFFBEB;
+}
+#mainmenu > ul{
+    display: flex;
+    justify-content: flex-end;
+    width: 80%;
+}
+#mainmenu > ul > li{
+    display: flex;
+    padding: 0px 50px;
+    margin-top: 20px;
+    height: 50px;
+}
+
+#main1, #main2, #main3{
+    background-image: url("./스터디.png");
+    background-attachment: fixed; 
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#footer{
+    text-align: center;
+    background-color: #FFFBEB;
+    color: rgba(0, 0, 0, 0.2);
+}
+
+#main3_1{
+    text-align: center;
+}
