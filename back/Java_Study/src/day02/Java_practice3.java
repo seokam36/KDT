@@ -1,3 +1,5 @@
+package day02;
+
 import java.util.Scanner;
 
 public class Java_practice3 {
@@ -101,11 +103,7 @@ public class Java_practice3 {
 
         /* System.out.printf("정수를 입력하세요 : ");
         int i = sc.nextInt();
-        if(i%7==0 && i%2==1){
-            System.out.println("결과 : true");
-        } else {
-            System.out.println("결과 : false");
-        } */
+        System.out.println(i%2==0 && i%7==0); */
 
         /*[문제 8] Scanner를 이용해 1차 점수와 2차 점수를 각각 int로 입력받아, 두 점수의 총점이 150점 이상이면 "합격", 아니면 "불합격"을 출력하시오.
         입력 예시:
@@ -118,8 +116,7 @@ public class Java_practice3 {
         int a = sc.nextInt();
         System.out.printf("2차 점수 : ");
         int b = sc.nextInt();
-        boolean result = a+b >= 150;
-        System.out.println(result); */
+        System.out.println(a+b>=90 ? "합격" : "불합격"); */
 
         /*[문제 9]  Scanner를 이용해 이름을 String으로 입력받아, 만약 이름이 "유재석"과 일치하면 이름 뒤에 "(방장)"을 붙여서 출력하고, 아니면 입력받은 이름만 출력하시오.
         입력 예시 1:
@@ -131,24 +128,37 @@ public class Java_practice3 {
         출력 예시 2:
         강호동 */
 
-        System.out.printf("이름을 입력하세요 : ");
+        /* System.out.printf("이름을 입력하세요 : ");
         String name = sc.next();
+        name += name.equals("유재석") ? "방장" : "";
+        System.out.println(name); */
 
-        /*[문제 10] Scanner를 이용해 삼각형의 밑변과 높이를 각각 double로 입력받아, 삼각형의 넓이를 계산하여 출력하시오.
+        /* [문제 10] Scanner를 이용해 삼각형의 밑변과 높이를 각각 double로 입력받아, 삼각형의 넓이를 계산하여 출력하시오.
         요구 조건: 공식: 밑변 * 높이 / 2.0
         입력 예시:
         밑변: 10.0
         높이: 5.5
         출력 예시:
-        삼각형의 넓이: 27.5
+        삼각형의 넓이: 27.5 */
 
-        [문제 11] Scanner를 이용해 섭씨 온도를 double로 입력받아, 화씨 온도로 변환하여 출력하시오.
+        /* System.out.printf("밑변 : ");
+        double a = sc.nextDouble();
+        System.out.printf("높이 : ");
+        double b = sc.nextDouble();
+        System.out.println(a*b/2); */
+
+        /* [문제 11] Scanner를 이용해 섭씨 온도를 double로 입력받아, 화씨 온도로 변환하여 출력하시오.
         요구 조건:
         공식: (섭씨 * 9.0 / 5.0) + 32
         입력 예시:
         섭씨 온도: 30.0
         출력 예시:
         화씨 온도: 86.0 */
+
+        /* System.out.printf("섭씨 온도 : ");
+        double a = sc.nextDouble();
+        double b = (a*9.0/5.0) + 32;
+        System.out.println("화씨 온도 : " + b); */
 
         /*[문제 12] Scanner를 이용해 태어난 년도(int)를 입력받아, 2025년 기준 현재 나이를 계산하여 출력하시오.
         요구 조건:
@@ -157,6 +167,10 @@ public class Java_practice3 {
         태어난 년도: 1998
         출력 예시:
         2025년 기준 나이: 27세 */
+
+        /* System.out.printf("태어난 년도 : ");
+        int year = sc.nextInt();
+        System.out.println("2025년 기준 나이 " + (2025-year)); */
 
         /*[문제 13] Scanner를 이용해 키(cm)와 몸무게(kg)를 각각 double로 입력받아, BMI 지수를 계산하여 출력하시오.
         요구 조건:
@@ -168,6 +182,13 @@ public class Java_practice3 {
         출력 예시:
         BMI 지수: 22.34... */
 
+        /* System.out.printf("키 :");
+        double a = sc.nextDouble();
+        System.out.printf("몸무게 :");
+        double b = sc.nextDouble();
+        double result = b / ((a/100.0)*(a/100.0));
+        System.out.println("BMI 지수 : " + result); */
+
         /*[문제 14] Scanner를 이용해 아이디와 이메일을 String으로 입력받습니다. 아이디가 "admin"이거나 또는 이메일이 "admin@test.com"이면 "관리자", 그렇지 않으면 "일반 사용자"를 출력하시오.
         입력 예시:
         아이디: user1
@@ -175,6 +196,12 @@ public class Java_practice3 {
         출력 예시:
         결과: 관리자 */
 
+        /* System.out.printf("아이디 : ");
+        String id = sc.next();
+        System.out.printf("이메일 : ");
+        String email = sc.next();
+        System.out.println(id.equals("admin")||email.equals("admin@test.com") ? "관리자" : "일반사용자");
+ */
         /*[문제 15] Scanner를 이용해 100점 만점의 점수(int)를 입력받아, 점수에 따라 아래와 같이 등급을 부여하고 출력하시오.
         90점 이상: 'A'
         80점 이상 90점 미만: 'B'
@@ -184,11 +211,18 @@ public class Java_practice3 {
         출력 예시:
         등급:B */
 
+        /* System.out.printf("점수를 입력하세요 : ");
+        int a = sc.nextInt();
+        System.out.println(a>=90 ? "A" : a>=80 ? "B" : "C"); */
+
         /*[문제 16] Scanner를 이용해 나이(int)를 입력받아, 20대(20세 이상 29세 이하)에 해당하는 경우 "이벤트 대상입니다."를, 그렇지 않으면 "이벤트 대상이 아닙니다."를 출력하시오.
         입력 예시:
         나이를 입력하세요: 25
         출력 예시:
         이벤트 대상입니다. */
 
+        System.out.printf("나이를 입력 : ");
+        int a = sc.nextInt();
+        System.out.println(a>=20 && a<=29 ? "이벤트 대상입니다." : "이벤트 대상이 아닙니다");
     }
 }

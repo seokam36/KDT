@@ -1,3 +1,5 @@
+package day02;
+
 public class Exam2 {
     public static void main(String[] args) {
         /* 자동 타입 변환 */
