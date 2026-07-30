@@ -210,8 +210,10 @@ public class Java_practice4 {
             System.out.println("여름");
         } else if(a==9||a==10||a==11){
             System.out.println("가을");
-        } else{
+        } else if(a==12||a==1||a==2){
             System.out.println("겨울");
+        } else {
+            System.out.println("잘못된 월입니다.");
         } */
 
         /*[문제 12] Scanner를 이용해 서로 다른 세 개의 정수를 입력받아, 가장 큰 수를 출력하는 프로그램을 작성하시오.
@@ -300,30 +302,12 @@ public class Java_practice4 {
         int a = sc.nextInt();
         System.out.printf("플레이어2 (0:가위, 1:바위, 2:보) : ");
         int b = sc.nextInt();
-        if(a==0){
-            if(b==0){
-                System.out.println("무승부");
-            } else if(b==1){
-                System.out.println("플레이어2 승리");
-            } else{
-                System.out.println("플레이어1 승리");
-            }
-        } else if(a==1){
-            if(b==1){
-                System.out.println("무승부");
-            } else if(b==2){
-                System.out.println("플레이어2 승리");
-            } else{
-                System.out.println("플레이어1 승리");
-            }
-        } else if(a==2){
-            if(b==2){
-                System.out.println("무승부");
-            } else if(b==0){
-                System.out.println("플레이어2 승리");
-            } else{
-                System.out.println("플레이어1 승리");
-            }
+        if((a-b+3)%3==0){
+            System.out.println("무승부");
+        } else if((a-b+3)%3==1){
+            System.out.println("플레이어1 승리`");
+        } else if ((a-b+3)%3==2){
+            System.out.println("플레이어2 승리");
         }
     }
 }
