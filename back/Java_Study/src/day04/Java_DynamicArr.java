@@ -35,7 +35,7 @@ public class Java_DynamicArr {
                     continue;
                 }
                 int[] newArr = new int[arr.length-1];
-                /* 건너뛴 newArr 인덱스 j로 따로 관리 */
+                /* 삭제된 인덱스 newArr, j로 따로 관리 */
                 int j = 0;
                 for (int i = 0; i < arr.length; i++) {
                     /* 삭제된 인덱스는 continue로 넘겨서 배열 복사하지 않기 */
