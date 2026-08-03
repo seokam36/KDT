@@ -157,5 +157,6 @@ public class Java_practice6 {
             System.out.println(fee + "원");
         }
         
+        sc.close();
     }
 }

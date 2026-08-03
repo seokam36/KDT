@@ -221,5 +221,6 @@ public class Java_practice5 {
                 break;
             }
         }
+        sc.close();
     }
 }
