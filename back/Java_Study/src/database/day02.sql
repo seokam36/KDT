@@ -59,3 +59,47 @@ CREATE Table test2(
     논리필드 BOOLEAN
 );
 DESCRIBE test2;
+/* ------------------------------------------------------------- */
+/* 속성,필드 제약조건 */
+CREATE Table test3(
+    필드명1 TINYINT not null,           /* 해당 필드 null X */
+    필드명2 SMALLINT UNIQUE,            /* 해당 필드 중복값 저장 X */
+    필드명3 INT DEFAULT 100,            /* 해당 필드 레코드 생성시 기본값 100 설정 */
+    필드명4 DATETIME DEFAULT now(),     /* 레코드(행) 삽입시 현재날짜,시간 자동 대입 */
+    필드명5 BIGINT AUTO_INCREMENT/*  PRIMARY KEY */,/* 레코드 삽입시 자동 순서번호 설정 , 기본키 설정 PK (not null, unique 내장) */
+    constraint PRIMARY KEY( 필드명5 )   /* 필드명5 기본키로 지정 */
+);
+
+CREATE Table test4(
+    필드명1 BIGINT,
+    constraint FOREIGN KEY(필드명1) REFERENCES test3(필드명5) on delete CASCADE
+    /* 
+    참조 옵션 : PK가 삭제, 수정된 경우 FK 어떻게 되는지
+        1. on delete/update CASCADE : pk 삭제/수정되면 fk같이 삭제/수정
+        2. on delete/update set null : fk null 설정
+        3. on delete/update RESTRICT : 생략시 기본값, pk가 fk로부터 참조 중이면 삭제/수정 불가능
+    */
+);
+
+/* 예제1) 회원제 게시판 */
+DROP DATABASE IF EXISTS boardservice0805;
+CREATE DATABASE boardservice0805;
+use boardservice0805;
+CREATE Table member(
+    m_num int AUTO_INCREMENT,        /* 자동 회원번호 할당 */
+    constraint PRIMARY KEY(m_num),    /* 회원번호 PK 설정 */
+    m_id VARCHAR(30) not NULL UNIQUE,    /* 최대 30글자, 공백X, 중복X */
+    m_pw VARCHAR(20) not NULL,
+    m_name VARCHAR(10) not NULL,
+    m_date DATETIME DEFAULT now()
+);
+CREATE Table board(
+    b_num int AUTO_INCREMENT,
+    constraint PRIMARY KEY(b_num),
+    b_title VARCHAR(255),
+    b_content longtext,
+    b_date DATETIME DEFAULT now(),
+    b_view int DEFAULT 0,
+    m_num int,
+    constraint FOREIGN KEY (m_num) REFERENCES member(m_num) on delete CASCADE
+);
