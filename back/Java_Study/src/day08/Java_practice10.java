@@ -42,25 +42,25 @@ class CircleCalculator{
         return radius * radius * PI;
     }
 }
-/*[문제 5] TicketMachine 클래스를 만드세요.
-        1. 이 클래스 안에, 발권된 총 티켓 수를 저장할 static int totalTickets = 0; 정적 변수를 선언하세요.
-        2. 티켓을 한 장 발권하는 issueTicket() 인스턴스 메소드를 만드세요. 이 메소드는 호출될 때마다 totalTickets
-        를 1씩 증가시키고, "티켓 1장을 발권했습니다."라고 출력합니다.
-        3. 현재까지 발권된 총 티켓 수를 출력하는 static void printTotalTickets() 정적 메소드를 만드세요.
-        4. main 함수에서 TicketMachine 객체 3개(machine1, machine2, machine3)를 생성하세요.
-        5. machine1으로 티켓 2장, machine2로 티켓 1장을 발권한 뒤, TicketMachine.printTotalTickets()를 호
-        출하여 총 발권 수가 올바르게 나오는지 확인하세요.*/
+
 class TicketMachin{
     public static int totalTickets = 0;
 
     void issueTicket(){
         totalTickets++;
-        System.out.println("티켓 " + totalTickets + "장을 발권했습니다.");
+        System.out.println("티켓 1장을 발권했습니다.");
     }
 
     static void printTotalTickets(){
         System.out.println("현재까지 발권된 총 티켓 수 : " + totalTickets);
     }
+}
+
+class  GameConfig{
+    public static final int MAX_LEVEL = 99;
+    public static final int MAX_HP = 10000;
+    public static final String GAME_TITLE = "My RPG";
+
 }
 public class Java_practice10 {
     public static void main(String[] args) {
@@ -114,7 +114,10 @@ public class Java_practice10 {
         TicketMachin machine1 = new TicketMachin();
         TicketMachin machine2 = new TicketMachin();
         TicketMachin machine3 = new TicketMachin();
-        
+        machine1.issueTicket();
+        machine1.issueTicket();
+        machine2.issueTicket();
+        TicketMachin.printTotalTickets();
 
         /*[문제 6] 게임의 고정 설정 값을 관리하는 GameConfig 클래스를 만드세요.
 
@@ -124,5 +127,6 @@ public class Java_practice10 {
         게임 이름 GAME_TITLE = "My RPG"
         2. main 함수에서 객체를 생성하지 않고, GameConfig.GAME_TITLE과 같이 클래스 이름으로 직접 접근하여
         모든 설정 값을 출력하세요.*/
+        System.out.println(GameConfig.GAME_TITLE +" "+ GameConfig.MAX_LEVEL + " " + GameConfig.MAX_HP);
     }
 }
