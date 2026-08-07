@@ -114,6 +114,7 @@ public class Java_practice10 {
         TicketMachin machine1 = new TicketMachin();
         TicketMachin machine2 = new TicketMachin();
         TicketMachin machine3 = new TicketMachin();
+        
 
         /*[문제 6] 게임의 고정 설정 값을 관리하는 GameConfig 클래스를 만드세요.
 
