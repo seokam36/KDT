@@ -1,6 +1,7 @@
 package day09;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Java_practice11 {
     public static void main(String[] args) {
@@ -12,33 +13,92 @@ public class Java_practice11 {
         nameList.add("강호동");
         nameList.add("신동엽");
         System.out.println("nameList = " + nameList);
+
         /*[문제 2] 다음과 같이 초기화된 ArrayList가 있습니다.
         1. ArrayList<String> fruits = new ArrayList<>();
         2. fruits.add("사과"); fruits.add("바나나"); fruits.add("딸기");
         3. 일반 for문을 사용하여, 각 인덱스와 해당 인덱스의 요소를 "인덱스 0: 사과" 형식으로 모두 출력하세요.*/
+        ArrayList<String> fruits = new ArrayList<>();
+        fruits.add("사과"); fruits.add("바나나"); fruits.add("딸기");
+        for (int i = 0; i < fruits.size(); i++) {
+            System.out.println("인덱스 " + i + ": " + fruits.get(i));
+        }
 
         /*[문제 3] 문제 3의 fruits 리스트를 사용합니다.
         1. 향상된 for문 을 사용하여 리스트의 모든 요소를 하나씩 출력하세요.*/
+        for (String fruit : fruits) {
+            System.out.println("fruit = " + fruit);
+        }
 
         /*[문제 4] "A", "B", "C", "D", "E"를 요소로 가지는 ArrayList를 생성하세요.
         1. .remove() 메소드를 사용하여 2번 인덱스의 요소("C")를 삭제하세요.
         2. 삭제 후의 리스트 전체를 출력하여 결과가 올바른지 확인하세요.*/
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("A");
+        arrayList.add("B");
+        arrayList.add("C");
+        arrayList.add("D");
+        arrayList.add("E");
+        arrayList.remove(2);
+        System.out.println("arrayList = " + arrayList);
 
         /*[문제 5] "자바", "파이썬", "C++"를 요소로 가지는 ArrayList를 생성하세요.
         1. .add(인덱스, 요소) 메소드를 사용하여 1번 인덱스에 "자바스크립트"를 삽입하세요.
         2. 삽입 후의 리스트 전체를 출력하여 순서가 올바르게 변경되었는지 확인하세요.*/
+        ArrayList<String> arrayList1 = new ArrayList<>();
+        arrayList1.add("자바");
+        arrayList1.add("파이썬");
+        arrayList1.add("C++");
+        arrayList1.add(1,"자바스크립트");
+        System.out.println("arrayList1 = " + arrayList1);
 
         /*[문제 6] title(문자열)과 author(문자열) 멤버 변수를 가진 Book 클래스를 만드세요.
         1. Book 객체를 저장할 수 있는 ArrayList를 library 라는 이름으로 생성하세요.
         2. new Book(...)을 사용하여 3권의 책 객체를 생성하고 library 리스트에 추가하세요.
         3. 향상된 for문을 사용하여 library에 저장된 모든 책의 제목과 저자를 출력하세요.*/
+        ArrayList<Book> library = new ArrayList<>();
+        Book book1 = new Book("dd", "dd");
+        Book book2 = new Book("aa", "aa");
+        Book book3 = new Book("bb", "bb");
+        library.add(book1);
+        library.add(book2);
+        library.add(book3);
+        for(Book book : library){
+            System.out.println("title : " + book.title + ", author : " + book.author);
+        }
 
         /*[문제 7] Scanner를 사용하여 사용자로부터 문자열을 계속해서 입력받습니다.
         1. 입력받은 문자열은 ArrayList에 순서대로 저장합니다.
         2. 만약 사용자가 "종료" 라는 단어를 입력하면, 입력을 멈추고 그때까지 리스트에 저장된 모든 내용을 출력한 뒤 프로그램을 종료하세요.*/
-
+        Scanner sc = new Scanner(System.in);
+        ArrayList<String> arrayList2 = new ArrayList<>();
+        while (true){
+            System.out.print("저장할 값 입력 (종료) : ");
+            String content = sc.next();
+            if(content.equals("종료")){
+                System.out.println("arrayList2 = " + arrayList2);
+                break;
+            }
+            arrayList2.add(content);
+        }
         /*[문제 8] "국어", "수학", "사회", "과학"을 요소로 가지는 ArrayList를 생성하세요.
         1. .set(인덱스, 요소) 메소드를 사용하여 1번 인덱스의 "수학"을 "영어"로 수정하세요.
         2. 수정 후의 리스트 전체를 출력하여 결과가 올바른지 확인하세요.*/
+        ArrayList<String> arrayList3 = new ArrayList<>();
+        arrayList3.add("국어");
+        arrayList3.add("수학");
+        arrayList3.add("사회");
+        arrayList3.add("과학");
+        arrayList3.set(1,"영어");
+        System.out.println("arrayList3 = " + arrayList3);
+    }
+}
+class Book{
+    String title;
+    String author;
+
+    public Book(String title, String author) {
+        this.title = title;
+        this.author = author;
     }
 }
