@@ -1,6 +1,6 @@
-package day09.Total_exam;
+package day09.mvc_exam;
 
-import day09.Total_exam.view.BoardView;
+import day09.mvc_exam.view.BoardView;
 
 public class AppStart {
     // 프로그램의 시작점

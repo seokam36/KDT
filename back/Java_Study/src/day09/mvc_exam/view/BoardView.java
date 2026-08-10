@@ -1,7 +1,7 @@
-package day09.Total_exam.view;
+package day09.mvc_exam.view;
 
-import day09.Total_exam.controller.BoardController;
-import day09.Total_exam.model.dto.BoardDto;
+import day09.mvc_exam.controller.BoardController;
+import day09.mvc_exam.model.dto.BoardDto;
 
 import java.util.ArrayList;
 import java.util.Scanner;

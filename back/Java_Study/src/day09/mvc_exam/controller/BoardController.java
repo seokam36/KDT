@@ -1,7 +1,7 @@
-package day09.Total_exam.controller;
+package day09.mvc_exam.controller;
 
-import day09.Total_exam.model.dao.BoardDao;
-import day09.Total_exam.model.dto.BoardDto;
+import day09.mvc_exam.model.dao.BoardDao;
+import day09.mvc_exam.model.dto.BoardDto;
 
 import java.util.ArrayList;
 

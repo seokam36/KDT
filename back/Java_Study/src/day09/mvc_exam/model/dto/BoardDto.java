@@ -1,4 +1,4 @@
-package day09.Total_exam.model.dto;
+package day09.mvc_exam.model.dto;
 
 public class BoardDto {
     // DTO : 데이터 이동객체, 자바는 저장소 X => 데이터베이스(저장소)
