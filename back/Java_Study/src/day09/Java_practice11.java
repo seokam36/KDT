@@ -57,14 +57,11 @@ public class Java_practice11 {
         2. new Book(...)을 사용하여 3권의 책 객체를 생성하고 library 리스트에 추가하세요.
         3. 향상된 for문을 사용하여 library에 저장된 모든 책의 제목과 저자를 출력하세요.*/
         ArrayList<Book> library = new ArrayList<>();
-        Book book1 = new Book("dd", "dd");
-        Book book2 = new Book("aa", "aa");
-        Book book3 = new Book("bb", "bb");
-        library.add(book1);
-        library.add(book2);
-        library.add(book3);
+        library.add(new Book("dd", "dd"));
+        library.add(new Book("aa", "aa"));
+        library.add(new Book("bb", "bb"));
         for(Book book : library){
-            System.out.println("title : " + book.title + ", author : " + book.author);
+            System.out.println("title : " + book.getTitle() + ", author : " + book.getAuthor());
         }
 
         /*[문제 7] Scanner를 사용하여 사용자로부터 문자열을 계속해서 입력받습니다.
@@ -94,11 +91,20 @@ public class Java_practice11 {
     }
 }
 class Book{
-    String title;
-    String author;
+    private String title;
+    private String author;
 
     public Book(String title, String author) {
         this.title = title;
         this.author = author;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
 }
