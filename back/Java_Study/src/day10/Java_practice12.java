@@ -95,10 +95,7 @@ class Character{
         weapon.attack();
     }
 }
-/*[문제 9] 필드와 메소드의 오버라이딩 차이
-        1. String name = "상위"; 필드와 method() 메소드("상위 메소드" 출력)를 가진 SuperClass를 만드세요.
-        2. SuperClass를 상속받고, String name = "하위"; 필드와 method() 메소드("하위 메소드" 출력)를 가진 SubClass를 만드세요.
-        3. SuperClass obj = new SubClass(); 로 객체를 생성한 뒤, obj.name과 obj.method()를 각각 호출했을 때의 결과를 확인하고, 왜 다른 결과가 나오는지 주석으로 설명하세요.*/
+
 class SuperClass{
     String name = "상위";
     void method(){
@@ -114,6 +111,13 @@ class SubClass extends SuperClass{
     }
 }
 
+
+class Device{
+}
+class Electronic extends  Device{
+}
+class Laptop extends Electronic{
+}
 public class Java_practice12 {
     public static void main(String[] args) {
         /*[문제 1] 기본 상속
@@ -186,12 +190,17 @@ public class Java_practice12 {
         2. SuperClass를 상속받고, String name = "하위"; 필드와 method() 메소드("하위 메소드" 출력)를 가진 SubClass를 만드세요.
         3. SuperClass obj = new SubClass(); 로 객체를 생성한 뒤, obj.name과 obj.method()를 각각 호출했을 때의 결과를 확인하고, 왜 다른 결과가 나오는지 주석으로 설명하세요.*/
         SuperClass obj = new SubClass();
-        System.out.println(obj.name);
-        obj.method();
+        System.out.println(obj.name); // SuperClass로 타입변환 했으므로 SuperClass의 필드를 출력한다
+        obj.method();   // 메소드는 클래스별로 관리되므로 실제 인스턴스 클래스인 SubClass에 있는 메소드를 사용한다.
         /*[문제 10] 다중 상속 관계
         1. Device 클래스를 만드세요.
         2. Device를 상속받는 Electronic 클래스를 만드세요.
         3. Electronic을 상속받는 Laptop 클래스를 만드세요.
-        4. main 함수에서 Laptop 객체를 생성한 뒤, 이 객체가 Electronic 타입과 Device 타입으로도 형 변환이 가능한지 instanceof 연산자로 확인하고 결과를 출력하세요.*/
+        4. main 함수에서 Laptop 객체를 생성한 뒤, 이 객체가 Electronic 타입과
+        Device 타입으로도 형 변환이 가능한지 instanceof 연산자로 확인하고 결과를 출력하세요.*/
+        Laptop laptop = new Laptop();
+        if (laptop instanceof Device){
+            System.out.println("형 변환 가능");
+        }
     }
 }
