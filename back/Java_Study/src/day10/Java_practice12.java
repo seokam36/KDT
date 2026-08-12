@@ -91,6 +91,7 @@ class Gun extends Weapon{
     }
 }
 class Character{
+    Weapon weapon;
     void use(Weapon weapon){
         weapon.attack();
     }
