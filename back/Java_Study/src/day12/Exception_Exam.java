@@ -65,5 +65,17 @@ public class Exception_Exam {
         } finally {
             System.out.println("finally 무조건 실행");
         }
+
+        // [5] 예외 던지기 , *예외반환* : 해당 메소드를 호출한 곳으로 예외 반환
+        try {
+            method1(); // 예외가 반환
+        } catch (Exception e){
+            System.out.println("메소드 예외 발생 " + e);
+        }
+    }
+
+    // 7. 예외발생시 발생한 곳에서 예외처리 하지 않고 떠넘기기
+    public static void method1() throws ClassNotFoundException{
+        Class.forName("java.lang.Spring"); // 예외발생
     }
 }
