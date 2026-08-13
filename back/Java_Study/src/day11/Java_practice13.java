@@ -62,12 +62,32 @@ class Duck implements Flyable, Swimmable{
     }
 }
 /*-----------------------------------------------------------------------------*/
-/*[문제 5] instanceof와 인터페이스
-        1. 문제 5에서 만든 Flyable, Swimmable 인터페이스와 Duck 클래스를 활용합니다.
-        2. main 함수에서 Duck 객체를 생성하고, Object 타입의 변수에 저장하세요.
-        3. if문과 instanceof 연산자를 사용하여, 해당 객체가 Flyable 타입인지,
-         Swimmable 타입인지 각각 확인하고, 맞다면 해당 인터페이스 타입으로 강제 형변환하여 메소드를 호출하세요.*/
+interface DataAccessObject{
+    void save();
+}
+class OracleDao implements DataAccessObject{
+
+    @Override
+    public void save() {
+        System.out.println("Oracle DB에 저장");
+    }
+}
+class MySqlDao implements DataAccessObject{
+
+    @Override
+    public void save() {
+        System.out.println("MySQL DB에 저장");
+    }
+}
 /*-----------------------------------------------------------------------------*/
+/*[문제 7] 익명 구현 객체
+        1. "환영합니다."를 출력하는 welcome() 추상 메소드를 가진 Greeting 인터페이스를 만드세요.
+        2. main 함수에서, 별도의 클래스 파일을 만들지 않고, Greeting 인터페이스 타입의 변수를 선언하면서
+        익명 구현 객체를 생성하여 welcome() 메소드를 즉석에서 구현하고 호출하세요.
+        예] Greeting g = new Greeting() { ... }; */
+interface Greeting{
+    void welcome();
+}
 /*-----------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------------*/
@@ -80,9 +100,9 @@ public class Java_practice13 {
         2. Soundable 인터페이스를 구현(implements)하는 Cat 클래스와 Dog 클래스를 만드세요.
         3. 각 클래스에서 makeSound() 메소드를 오버라이딩하여, 각각 "야옹", "멍멍"을 출력하도록 구현하세요.
         4. main 함수에서 Cat 객체와 Dog 객체를 생성하고, 각 객체의 makeSound() 메소드를 호출하여 결과를 확인하세요.*/
-        Cat cat = new Cat();
+        Soundable cat = new Cat();
         cat.makeSound();
-        Dog dog = new Dog();
+        Soundable dog = new Dog();
         dog.makeSound();
 
         /*[문제 2] 인터페이스 상수
@@ -97,8 +117,8 @@ public class Java_practice13 {
         2. Attackable을 구현하는 Sword 클래스와 Gun 클래스를 만드세요.
         3. Attackable 타입의 객체를 매개변수로 받아, 해당 객체의 attack() 메소드를 호출하는 Character 클래스와 useWeapon(Attackable weapon) 메소드를 만드세요.
         4. main 함수에서 Sword 객체와 Gun 객체를 생성한 뒤, 이 객체들을 Character의 useWeapon() 메소드에 인자로 전달하여 동작을 확인하세요.*/
-        Gun gun = new Gun();
-        Sword sword = new Sword();
+        Attackable gun = new Gun();
+        Attackable sword = new Sword();
         Character character = new Character();
         character.useWeapon(gun);
         character.useWeapon(sword);
@@ -116,18 +136,38 @@ public class Java_practice13 {
         1. 문제 5에서 만든 Flyable, Swimmable 인터페이스와 Duck 클래스를 활용합니다.
         2. main 함수에서 Duck 객체를 생성하고, Object 타입의 변수에 저장하세요.
         3. if문과 instanceof 연산자를 사용하여, 해당 객체가 Flyable 타입인지, Swimmable 타입인지 각각 확인하고, 맞다면 해당 인터페이스 타입으로 강제 형변환하여 메소드를 호출하세요.*/
+        Object duck1 = new Duck();
+        if (duck1 instanceof Swimmable){
+            Swimmable duck2 = (Swimmable) duck1;
+            duck2.swim();
+        }
+        if (duck1 instanceof Flyable){
+            Flyable duck3 = (Flyable) duck1;
+            duck3.fly();
+        }
+
 
         /*[문제 6] 인터페이스를 이용한 객체 교체
         1. "데이터를 저장합니다."라는 추상 메소드 save()를 가진 DataAccessObject 인터페이스를 만드세요.
         2. DataAccessObject를 구현하여 각각 "Oracle DB에 저장", "MySQL DB에 저장"을 출력하는 OracleDao, MySqlDao 클래스를 만드세요.
         3. main 함수에서 DataAccessObject 타입의 변수 dao를 선언하세요.
         4. dao에 new OracleDao()를 대입하여 save()를 호출하고, 그 다음 new MySqlDao()를 대입하여 save()를 호출하여 DB가 쉽게 교체되는 것을 확인하세요.*/
+        DataAccessObject dao;
+        dao = new OracleDao();
+        dao.save();
+        dao = new MySqlDao();
+        dao.save();
 
         /*[문제 7] 익명 구현 객체
         1. "환영합니다."를 출력하는 welcome() 추상 메소드를 가진 Greeting 인터페이스를 만드세요.
         2. main 함수에서, 별도의 클래스 파일을 만들지 않고, Greeting 인터페이스 타입의 변수를 선언하면서 익명 구현 객체를 생성하여 welcome() 메소드를 즉석에서 구현하고 호출하세요.
         예] Greeting g = new Greeting() { ... }; */
-
+        Greeting greeting = new Greeting() {
+            @Override
+            public void welcome() {
+                System.out.println("Welcome");
+            }
+        };
         /*[문제 8] 디폴트 메소드 (Default Method)
         1.Device 인터페이스에, turnOn(), turnOff() 추상 메소드와 함께, public default void setMute(boolean mute) 디폴트 메소드를 추가하세요. 디폴트 메소드는 "무음 처리합니다."를 출력하도록 구현합니다.
         2.Television 클래스가 Device를 구현하도록 하되, turnOn(), turnOff()만 오버라이딩하세요.
