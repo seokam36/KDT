@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>INNER JOIN vs LEFT / RIGHT JOIN — 그림으로 이해하기</title>
+<style>
+  :root{
+    --bg:#f6f5f2; --card:#ffffff; --line:#e2dfd8; --line2:#d3cfc6;
+    --ink:#22201c; --muted:#6e6960;
+    --keep:#2f7d4f; --keepbg:#eaf5ee;
+    --drop:#b0463c; --dropbg:#fbeceb;
+    --null:#a8761f; --nullbg:#fdf3e2;
+    --blue:#2f5f9e; --bluebg:#eaf0f9;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; padding:32px 20px 72px;
+    background:var(--bg); color:var(--ink);
+    font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+    font-size:15px; line-height:1.65;
+  }
+  .wrap{max-width:1000px;margin:0 auto}
+  h1{font-size:26px;margin:0 0 6px;letter-spacing:-.02em}
+  .sub{color:var(--muted);margin:0 0 32px}
+  h2{font-size:19px;margin:0 0 4px;letter-spacing:-.01em}
+  h3{font-size:15px;margin:22px 0 8px;color:var(--muted);font-weight:600}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:22px}
+  .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;
+       padding:3px 9px;border-radius:999px;margin-bottom:10px}
+  .tag.q7{background:var(--bluebg);color:var(--blue)}
+  .tag.q8{background:var(--keepbg);color:var(--keep)}
+  code,pre{font-family:ui-monospace,SFMono-Regular,"D2Coding",Menlo,Consolas,monospace}
+  pre{background:#2b2a26;color:#eeeae0;padding:14px 16px;border-radius:10px;
+      font-size:13px;line-height:1.6;overflow-x:auto;margin:10px 0}
+  pre .kw{color:#e0a33e} pre .cm{color:#8f8a7e} pre .hl{color:#7fc79a;font-weight:700}
+  code.inl{background:#efece5;padding:1px 6px;border-radius:5px;font-size:13px}
+
+  .panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px;margin-top:14px}
+  .panel{border:1px solid var(--line);border-radius:11px;padding:14px;background:#fcfbf9}
+  .panel h4{margin:0 0 2px;font-size:15px;font-family:ui-monospace,Menlo,monospace}
+  .panel .desc{font-size:13px;color:var(--muted);margin:0 0 8px;min-height:38px}
+  .panel .res{margin-top:6px;font-size:13px;padding:7px 10px;border-radius:8px;background:#f0eee8}
+  .panel .res b{font-variant-numeric:tabular-nums}
+
+  table{border-collapse:collapse;font-size:13px;margin:6px 0}
+  th,td{border:1px solid var(--line2);padding:5px 11px;text-align:left;white-space:nowrap}
+  th{background:#f2efe9;font-weight:600;font-size:12px;color:#4a463f}
+  caption{caption-side:top;text-align:left;font-size:12px;font-weight:700;color:var(--muted);padding-bottom:5px}
+  tr.isnull td{background:var(--nullbg)}
+  tr.dropped td{background:var(--dropbg);color:#8d5a54;text-decoration:line-through}
+  tr.hit td{background:var(--keepbg)}
+  .nullcell{color:var(--null);font-weight:700;font-style:italic}
+  .tables{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start}
+  .arrow{align-self:center;font-size:22px;color:var(--muted);padding:0 2px}
+
+  .note{border-left:3px solid var(--line2);padding:2px 0 2px 14px;margin:14px 0;color:#4d4941;font-size:14px}
+  .note.warn{border-color:var(--drop)}
+  .note.good{border-color:var(--keep)}
+  .note b{color:var(--ink)}
+
+  .rules{list-style:none;padding:0;margin:8px 0 0}
+  .rules li{padding:11px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:9px;background:#fcfbf9}
+  .rules li b{display:block;margin-bottom:2px}
+  .kbd{display:inline-block;background:#efece5;border:1px solid var(--line2);border-bottom-width:2px;
+       border-radius:5px;padding:0 6px;font-size:12px;font-family:ui-monospace,monospace}
+  .sm{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>INNER JOIN vs LEFT / RIGHT JOIN</h1>
+  <p class="sub">한 줄 요약 — <b>INNER는 짝이 맞는 행만 남기고, OUTER(LEFT/RIGHT)는 짝이 없어도 한쪽 행을 살려두고 반대편을 NULL로 채운다.</b></p>
+
+  <!-- 1. 개념 -->
+  <section>
+    <h2>1. 기본 원리 — 짝이 없는 행을 어떻게 처리하는가</h2>
+    <p class="sm">왼쪽 테이블에 키 <code class="inl">1, 2, 3</code>, 오른쪽 테이블에 키 <code class="inl">1, 2, 4</code>가 있다고 하자.
+       <code class="inl">ON 왼쪽.키 = 오른쪽.키</code>로 조인하면:</p>
+    <div class="panels" id="panels"></div>
+    <div class="note">
+      <b>RIGHT JOIN은 사실 안 써도 된다.</b> <code class="inl">A LEFT JOIN B</code> 와 <code class="inl">B RIGHT JOIN A</code> 는 완전히 같은 결과다.
+      테이블 순서만 바꾸면 되니, 실무에서는 방향을 헷갈리지 않으려고 LEFT JOIN 하나로 통일해서 쓰는 경우가 많다.
+    </div>
+  </section>
+
+  <!-- 2. 문제 7 -->
+  <section>
+    <span class="tag q7">문제 7</span>
+    <h2>재고가 한 번도 등록되지 않은 제품 → LEFT JOIN이 <u>반드시</u> 필요</h2>
+    <pre><span class="cm">-- 찾으려는 건 "stock에 짝이 <b>없는</b>" 제품 = INNER JOIN이 버리는 바로 그 행</span>
+<span class="kw">SELECT</span> 제품명
+<span class="kw">FROM</span> product p <span class="hl">LEFT JOIN</span> stock s <span class="kw">ON</span> p.제품번호_pk = s.제품번호_fk
+<span class="kw">WHERE</span> <span class="hl">재고수량 IS NULL</span>;</pre>
+
+    <h3>원본 데이터</h3>
+    <div class="tables">
+      <table>
+        <caption>product</caption>
+        <tr><th>제품번호_pk</th><th>제품명</th><th>카테고리번호_fk</th></tr>
+        <tr><td>1</td><td>노트북</td><td>10</td></tr>
+        <tr><td>2</td><td>마우스</td><td>10</td></tr>
+        <tr><td>3</td><td>의자</td><td>20</td></tr>
+        <tr class="isnull"><td>4</td><td>책상</td><td>20</td></tr>
+        <tr class="isnull"><td>5</td><td>스탠드</td><td>30</td></tr>
+      </table>
+      <table>
+        <caption>stock — 4번·5번 제품은 등장하지 않음</caption>
+        <tr><th>재고번호_pk</th><th>제품번호_fk</th><th>재고수량</th></tr>
+        <tr><td>101</td><td>1</td><td>5</td></tr>
+        <tr><td>102</td><td>1</td><td>3</td></tr>
+        <tr><td>103</td><td>2</td><td>10</td></tr>
+        <tr><td>104</td><td>3</td><td>7</td></tr>
+      </table>
+    </div>
+
+    <h3>LEFT JOIN 직후 (WHERE 적용 전)</h3>
+    <div class="tables">
+      <table>
+        <caption>product LEFT JOIN stock — product 5행이 전부 살아남음</caption>
+        <tr><th>제품번호_pk</th><th>제품명</th><th>재고번호_pk</th><th>재고수량</th></tr>
+        <tr><td>1</td><td>노트북</td><td>101</td><td>5</td></tr>
+        <tr><td>1</td><td>노트북</td><td>102</td><td>3</td></tr>
+        <tr><td>2</td><td>마우스</td><td>103</td><td>10</td></tr>
+        <tr><td>3</td><td>의자</td><td>104</td><td>7</td></tr>
+        <tr class="isnull"><td>4</td><td>책상</td><td class="nullcell">NULL</td><td class="nullcell">NULL</td></tr>
+        <tr class="isnull"><td>5</td><td>스탠드</td><td class="nullcell">NULL</td><td class="nullcell">NULL</td></tr>
+      </table>
+      <div class="arrow">→</div>
+      <table>
+        <caption>WHERE 재고수량 IS NULL 적용 → 정답</caption>
+        <tr><th>제품명</th></tr>
+        <tr class="hit"><td>책상</td></tr>
+        <tr class="hit"><td>스탠드</td></tr>
+      </table>
+    </div>
+
+    <div class="note warn">
+      <b>여기서 INNER JOIN을 쓰면?</b> 짝 없는 책상·스탠드 행이 조인 단계에서 이미 사라진다.
+      남은 4행에는 재고수량이 전부 값이 있으므로 <code class="inl">IS NULL</code> 조건에 걸리는 행이 하나도 없어
+      <b>결과가 0건</b>이 된다. "없는 것을 찾는 질문"에 INNER JOIN을 쓰면 구조적으로 답이 나올 수 없다.
+    </div>
+    <div class="note">
+      <b>OUTER JOIN이 만들어내는 NULL은 "값이 비어있다"가 아니라 "짝이 없었다"는 표시다.</b>
+      그래서 <code class="inl">LEFT JOIN + IS NULL</code> 조합이 "~하지 않은 대상 찾기"의 정석 패턴이 된다.
+    </div>
+  </section>
+
+  <!-- 3. 문제 8 -->
+  <section>
+    <span class="tag q8">문제 8</span>
+    <h2>카테고리별 재고 합계 → 값이 있는 것만 집계하므로 INNER JOIN</h2>
+    <pre><span class="kw">SELECT</span> 카테고리명, <span class="kw">SUM</span>(s.재고수량) <span class="cm">AS 총재고</span>
+<span class="kw">FROM</span> pcategory p <span class="hl">INNER JOIN</span> product p2 <span class="kw">ON</span> p.카테고리번호_pk = p2.카테고리번호_fk
+                <span class="hl">INNER JOIN</span> stock s   <span class="kw">ON</span> p2.제품번호_pk = s.제품번호_fk
+<span class="kw">GROUP BY</span> 카테고리명;</pre>
+
+    <h3>3단 조인이 흐르는 모습</h3>
+    <div class="tables">
+      <table>
+        <caption>① pcategory</caption>
+        <tr><th>번호</th><th>카테고리명</th></tr>
+        <tr><td>10</td><td>전자기기</td></tr>
+        <tr><td>20</td><td>가구</td></tr>
+        <tr class="dropped"><td>30</td><td>조명</td></tr>
+      </table>
+      <div class="arrow">⋈</div>
+      <table>
+        <caption>② product</caption>
+        <tr><th>제품</th><th>카테고리</th></tr>
+        <tr><td>노트북</td><td>10</td></tr>
+        <tr><td>마우스</td><td>10</td></tr>
+        <tr><td>의자</td><td>20</td></tr>
+        <tr class="dropped"><td>책상</td><td>20</td></tr>
+        <tr class="dropped"><td>스탠드</td><td>30</td></tr>
+      </table>
+      <div class="arrow">⋈</div>
+      <table>
+        <caption>③ stock</caption>
+        <tr><th>제품번호_fk</th><th>재고수량</th></tr>
+        <tr><td>1</td><td>5</td></tr>
+        <tr><td>1</td><td>3</td></tr>
+        <tr><td>2</td><td>10</td></tr>
+        <tr><td>3</td><td>7</td></tr>
+      </table>
+      <div class="arrow">→</div>
+      <table>
+        <caption>결과</caption>
+        <tr><th>카테고리명</th><th>총 재고 수량</th></tr>
+        <tr class="hit"><td>전자기기</td><td>18</td></tr>
+        <tr class="hit"><td>가구</td><td>7</td></tr>
+      </table>
+    </div>
+    <p class="sm">두 번째 INNER JOIN에서 재고가 없는 <b>책상·스탠드</b>가 탈락한다.
+       그런데 조명 카테고리에는 스탠드밖에 없었으므로, <b>조명 카테고리 자체가 결과에서 통째로 사라진다.</b></p>
+
+    <h3>같은 문제를 LEFT JOIN으로 바꾸면</h3>
+    <div class="tables">
+      <table>
+        <caption>INNER JOIN — 지금 쿼리</caption>
+        <tr><th>카테고리명</th><th>총 재고 수량</th></tr>
+        <tr><td>전자기기</td><td>18</td></tr>
+        <tr><td>가구</td><td>7</td></tr>
+      </table>
+      <table>
+        <caption>LEFT JOIN — 조명이 NULL로 등장</caption>
+        <tr><th>카테고리명</th><th>총 재고 수량</th></tr>
+        <tr><td>전자기기</td><td>18</td></tr>
+        <tr><td>가구</td><td>7</td></tr>
+        <tr class="isnull"><td>조명</td><td class="nullcell">NULL</td></tr>
+      </table>
+      <table>
+        <caption>LEFT JOIN + IFNULL — 실무에서 자주 원하는 형태</caption>
+        <tr><th>카테고리명</th><th>총 재고 수량</th></tr>
+        <tr><td>전자기기</td><td>18</td></tr>
+        <tr><td>가구</td><td>7</td></tr>
+        <tr class="hit"><td>조명</td><td>0</td></tr>
+      </table>
+    </div>
+    <div class="note good">
+      <b>어느 쪽이 정답인가?</b> 문제가 "재고가 있는 카테고리의 합계"를 원하면 지금처럼 INNER JOIN이 맞다.
+      하지만 "<b>각</b> 카테고리별로"라는 표현을 재고 0인 카테고리까지 포함하라는 뜻으로 읽는다면
+      <code class="inl">LEFT JOIN</code> + <code class="inl">IFNULL(SUM(s.재고수량), 0)</code>로 써야 한다.
+      <span class="sm">(<code class="inl">SUM(NULL)</code>은 0이 아니라 NULL이므로 IFNULL/COALESCE가 필요하다.)</span>
+    </div>
+  </section>
+
+  <!-- 4. 함정 -->
+  <section>
+    <h2>3. 가장 많이 틀리는 함정 — LEFT JOIN을 써놓고 INNER로 만들어버리기</h2>
+    <pre><span class="cm">-- ❌ LEFT JOIN인데 WHERE에 오른쪽 테이블 조건을 걸면...</span>
+<span class="kw">FROM</span> product p <span class="kw">LEFT JOIN</span> stock s <span class="kw">ON</span> p.제품번호_pk = s.제품번호_fk
+<span class="kw">WHERE</span> s.재고수량 &gt; 0        <span class="cm">-- NULL &gt; 0 은 참이 아님 → NULL 행이 전부 탈락 = INNER JOIN과 동일</span>
+
+<span class="cm">-- ✅ 짝 없는 행을 살려두고 싶으면 조건을 ON 절로 옮긴다</span>
+<span class="kw">FROM</span> product p <span class="kw">LEFT JOIN</span> stock s <span class="kw">ON</span> p.제품번호_pk = s.제품번호_fk <span class="hl">AND s.재고수량 &gt; 0</span></pre>
+    <p class="sm"><b>ON은 조인할 때 짝을 맞추는 조건</b>, <b>WHERE는 조인이 끝난 뒤 결과를 걸러내는 조건</b>이다.
+       INNER JOIN에서는 둘의 결과가 같지만, OUTER JOIN에서는 완전히 달라진다.
+       문제 7의 <code class="inl">WHERE 재고수량 IS NULL</code>은 "NULL 행만 남기려는" 의도적 예외라 괜찮다.</p>
+  </section>
+
+  <!-- 5. 판단 기준 -->
+  <section>
+    <h2>4. 문제 보고 30초 안에 고르는 법</h2>
+    <ul class="rules">
+      <li><b>"~한 적 없는 / ~가 없는 / 미등록 / 한 번도 ~않은"</b>
+        <span class="sm">→ <span class="kbd">LEFT JOIN</span> + <span class="kbd">WHERE 오른쪽컬럼 IS NULL</span> · 문제 7이 여기 해당</span></li>
+      <li><b>"양쪽 모두에 존재하는 것만 / ~한 내역을 집계"</b>
+        <span class="sm">→ <span class="kbd">INNER JOIN</span> · 문제 8이 여기 해당</span></li>
+      <li><b>"전체 목록을 다 보여주되, 없는 건 0이나 빈칸으로"</b>
+        <span class="sm">→ <span class="kbd">LEFT JOIN</span> + <span class="kbd">IFNULL(...)</span> / <span class="kbd">COALESCE(...)</span></span></li>
+      <li><b>기준이 되는 테이블을 FROM 뒤에 먼저 쓴다</b>
+        <span class="sm">"제품 기준으로 재고를 붙인다" → <code class="inl">FROM product LEFT JOIN stock</code>.
+        이 순서만 지키면 RIGHT JOIN은 평생 쓸 일이 거의 없다.</span></li>
+    </ul>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  var ROWS = [
+    {left:'키 1', right:'키 1', kind:'match'},
+    {left:'키 2', right:'키 2', kind:'match'},
+    {left:'키 3', right:null,   kind:'leftOnly'},
+    {left:null,   right:'키 4', kind:'rightOnly'}
+  ];
+  var C = {keep:'#2f7d4f', keepbg:'#eaf5ee', drop:'#b0463c', dropbg:'#fbeceb',
+           nul:'#a8761f', nulbg:'#fdf3e2', line:'#d3cfc6', muted:'#8d887f'};
+
+  function box(x,y,w,h,fill,stroke,text,tcolor,dashed,strike){
+    var s = '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="6" fill="'+fill+'" stroke="'+stroke+'" stroke-width="1.4"'
+          + (dashed ? ' stroke-dasharray="4 3"' : '') + '/>';
+    s += '<text x="'+(x+w/2)+'" y="'+(y+h/2+4.5)+'" text-anchor="middle" font-size="12.5" fill="'+tcolor+'"'
+       + (strike ? ' text-decoration="line-through"' : '') + ' font-family="ui-monospace,Menlo,monospace">'+text+'</text>';
+    return s;
+  }
+
+  function render(type){
+    var W=300, TOP=28, RH=40, BH=28, LX=8, RX=188, BW=104, GAPL=LX+BW, GAPR=RX;
+    var h = TOP + ROWS.length*RH + 6;
+    var s = '<svg viewBox="0 0 '+W+' '+h+'" width="100%" style="max-width:300px">';
+    s += '<text x="'+(LX+BW/2)+'" y="16" text-anchor="middle" font-size="11.5" font-weight="700" fill="'+C.muted+'">왼쪽 테이블</text>';
+    s += '<text x="'+(RX+BW/2)+'" y="16" text-anchor="middle" font-size="11.5" font-weight="700" fill="'+C.muted+'">오른쪽 테이블</text>';
+
+    ROWS.forEach(function(r,i){
+      var y = TOP + i*RH, cy = y + BH/2;
+      var keptL, keptR, nullSide = null;
+
+      if(r.kind==='match'){ keptL=true; keptR=true; }
+      else if(r.kind==='leftOnly'){
+        keptL = (type!=='inner' && type!=='right');
+        keptR = false;
+        if(type==='left') nullSide='right';
+      } else { // rightOnly
+        keptR = (type!=='inner' && type!=='left');
+        keptL = false;
+        if(type==='right') nullSide='left';
+      }
+
+      // 연결선
+      if(r.kind==='match'){
+        s += '<line x1="'+GAPL+'" y1="'+cy+'" x2="'+GAPR+'" y2="'+cy+'" stroke="'+C.keep+'" stroke-width="2"/>';
+      } else if(nullSide){
+        s += '<line x1="'+GAPL+'" y1="'+cy+'" x2="'+GAPR+'" y2="'+cy+'" stroke="'+C.nul+'" stroke-width="1.6" stroke-dasharray="4 3"/>';
+      } else {
+        s += '<text x="'+((GAPL+GAPR)/2)+'" y="'+(cy+5)+'" text-anchor="middle" font-size="15" fill="'+C.drop+'">✕</text>';
+      }
+
+      // 왼쪽 박스
+      if(r.left){
+        var okL = keptL;
+        s += box(LX,y,BW,BH, okL?C.keepbg:C.dropbg, okL?C.keep:C.drop, r.left, okL?C.keep:C.drop, false, !okL);
+      } else if(nullSide==='left'){
+        s += box(LX,y,BW,BH, C.nulbg, C.nul, 'NULL', C.nul, true, false);
+      }
+
+      // 오른쪽 박스
+      if(r.right){
+        var okR = keptR;
+        s += box(RX,y,BW,BH, okR?C.keepbg:C.dropbg, okR?C.keep:C.drop, r.right, okR?C.keep:C.drop, false, !okR);
+      } else if(nullSide==='right'){
+        s += box(RX,y,BW,BH, C.nulbg, C.nul, 'NULL', C.nul, true, false);
+      }
+    });
+
+    s += '</svg>';
+    return s;
+  }
+
+  var META = [
+    {type:'inner', title:'INNER JOIN',
+     desc:'양쪽에 짝이 맞는 행만 남는다. 짝 없는 행은 왼쪽이든 오른쪽이든 전부 버려진다.',
+     res:'결과 <b>2행</b> — 키 3과 키 4는 사라짐'},
+    {type:'left', title:'LEFT (OUTER) JOIN',
+     desc:'왼쪽 테이블은 전부 살린다. 짝이 없으면 오른쪽 컬럼을 NULL로 채운다.',
+     res:'결과 <b>3행</b> — 키 3은 NULL을 달고 생존, 키 4만 사라짐'},
+    {type:'right', title:'RIGHT (OUTER) JOIN',
+     desc:'오른쪽 테이블은 전부 살린다. 짝이 없으면 왼쪽 컬럼을 NULL로 채운다.',
+     res:'결과 <b>3행</b> — 키 4는 NULL을 달고 생존, 키 3만 사라짐'}
+  ];
+
+  document.getElementById('panels').innerHTML = META.map(function(m){
+    return '<div class="panel"><h4>'+m.title+'</h4><p class="desc">'+m.desc+'</p>'
+         + render(m.type) + '<div class="res">'+m.res+'</div></div>';
+  }).join('');
+})();
+</script>
+</body>
+</html>
