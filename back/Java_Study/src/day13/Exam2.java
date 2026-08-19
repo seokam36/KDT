@@ -31,22 +31,28 @@ public class Exam2 {
         // 1. 현재 날짜
         LocalDate localDate = LocalDate.now();      // now()는 static 함수라 인스턴스 생성 X
         System.out.println(localDate);
+
         // 2. 현재 시간
         LocalTime localTime = LocalTime.now();
         System.out.println(localTime);
+
         // 3. 현재 날짜 시간
         LocalDateTime localDateTime = LocalDateTime.now();
         System.out.println(localDateTime);
+
         // 4. 정해진 날짜,시간 객체 생성 LocalDateTime.of( 연도, 월, 일, 시, 분, 초) , 오버로딩
         LocalDateTime localDateTime2 = LocalDateTime.of(2026,8,19,11,13,30);
         System.out.println(localDateTime2);
+
         // 5. 정해진 형식으로 날짜/시간 표현
         // 패턴 : y연도 M월 d일 h시 m분 s초 , 날짜/시간객체.format( 패턴객체 )
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("y년 M월 d일 h시m분s초");
         System.out.println(localDateTime2.format(formatter));
+
         // 6. 날짜 계산 , 날짜/시간객체.plusDays(수)
         System.out.println(localDateTime2.plusDays(19));
         System.out.println(localDateTime2.minusDays(19));
+
         // 7. 특정한 날짜/시간 추출 , .getXXX()
         System.out.println(localDateTime2.getYear());
         System.out.println(localDateTime2.getMonthValue()); // .getMonth() 영문, getMonthValue() 정수
