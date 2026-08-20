@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Practice {
+public class Java_practice14 {
     public static void main(String[] args) {
 
         String carParkingList = "3,211가6231,202608190930\n8,452하1234,202608171227";
