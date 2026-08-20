@@ -118,10 +118,10 @@ public class Practice {
     }
 
     private static boolean findCarLocation(ArrayList<String[]> carList, String carNumber) {
-        for (String[] s : carList) {
-            for (int i = 0; i < s.length; i++) {
-                if (s[i].equals(carNumber)) {
-                    System.out.println("차량 위치 : " + s[0]);
+        for (String[] car : carList) {
+            for (int i = 0; i < car.length; i++) {
+                if (car[i].equals(carNumber)) {
+                    System.out.println("차량 위치 : " + car[0]);
                     return true;
                 }
             }
